@@ -1,4 +1,4 @@
-# ================================================================
+# ================================================================ - IS THIS IN THE ORIGINAL CODE
 #  sampling.jl — ODE loop, decoupled from projection backend
 # ================================================================
 
@@ -57,40 +57,6 @@ end
 Physics-constrained sampling.  The ODE loop knows **nothing** about
 which solver or constraint is used — it just calls `solve_projection`.
 """
-# function sample_pcfm(
-#         model, ps, st,
-#         nx, nt, emb_channels,
-#         n_samples, n_steps,
-#         solver::AbstractProjectionSolver,
-#         constraint_data;
-#         verbose = true
-# )
-#     x_0 = randn(Float32, nx, nt, 1, n_samples)
-#     x   = copy(x_0)
-#     dt  = 1.0f0 / n_steps
-
-#     for step in 0:(n_steps - 1)
-#         verbose && step % 10 == 0 && println("PCFM step: $step/$n_steps")
-
-#         τ      = Float32(step * dt)
-#         τ_next = τ + dt
-#         t_vec  = fill(τ, n_samples)
-
-#         x_input = prepare_input(x, t_vec, nx, nt, n_samples, emb_channels)
-#         v, st   = model(x_input, ps, st)
-
-#         # extrapolate to t = 1
-#         x_1 = x .+ v .* (1.0f0 - τ)
-
-#         # projection - solver-agnostic 
-#         x_1 = solve_projection(solver, x_1, constraint_data)
-
-#         # corrected interpolation
-#         x = x_0 .+ (x_1 .- x_0) .* τ_next
-#     end
-#     return x
-# end
-
 function sample_pcfm(model, ps, st, nx, nt, emb_channels,
     n_samples, n_steps,
     solver::AbstractProjectionSolver,

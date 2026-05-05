@@ -40,10 +40,12 @@ export IPMassProjectionSolver
 export RDSolver
 export NSVorticityAnalyticSolver
 export NSVorticityLBFGSSolver
-export BurgersConservationSolver
+# export BurgersConservationSolver
 export RDIPNewtonSolver
 export NSVorticityIPNewtonSolver
-export BurgersIPNewtonSolver
+# export BurgersIPNewtonSolver
+export BurgersBCMassSolver, BurgersBCMassIPSolver
+export BurgersICFluxSolver, BurgersICFluxIPSolver
 
 export solve_projection, make_constraint_data
 # constraint factories

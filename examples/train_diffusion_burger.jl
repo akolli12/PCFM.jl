@@ -9,7 +9,7 @@ n_samples = 4
 n_steps = 20
 
 # CHECK VALUES
-nx, nt = 101, 101
+nx, nt = 100, 100
 emb_channels = 32
 
 ffm = FFM(nx=nx, nt=nt, emb_channels=emb_channels,

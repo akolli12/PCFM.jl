@@ -12,7 +12,7 @@ ps = saved["parameters"]
 st = saved["states"]
 
 # RD typically uses Neumann BCs on [0,1]
-nx, nt = 101, 101
+nx, nt = 100, 100
 emb_channels = 32
 n_samples = 4
 n_steps = 20

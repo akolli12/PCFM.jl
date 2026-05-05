@@ -1,7 +1,7 @@
 using JLD2, PCFM, Lux, Random, Plots
 # Build 2D model matching the checkpoint
 s = 64
-nt_ns = 50
+nt_ns = 50 # SHOULD THIS BE 100
 emb_channels = 32
 
 ffm = FFM(spatial_size=(s, s), nt=nt_ns, emb_channels=emb_channels,
@@ -26,9 +26,9 @@ cdata = make_constraint_data(u_0_ic, (s, s), nt_ns, n_samples; dx=dx)
 W0 = cdata.M0
 
 solvers = [
-    ("B2: Vorticity (analytic)", NSVorticityAnalyticSolver()),
-    # ("B2: Vorticity (LBFGS)",   NSVorticityLBFGSSolver(penalty=1.0f4)),
-    ("B2: Vorticity (IP)", NSVorticityIPNewtonSolver())
+    ("B2: Navier Stokes (analytic)", NSVorticityAnalyticSolver()),
+    # ("B2: Navier Stokes (LBFGS)",   NSVorticityLBFGSSolver(penalty=1.0f4)), --> too slow for the spatial size (64^2 variables to ADD)
+    # ("B2: Navier Stokes (IP)", NSVorticityIPNewtonSolver()) --> too slow for the spatial size (64^2 variables to ADD)
 ]
 
 results = []
