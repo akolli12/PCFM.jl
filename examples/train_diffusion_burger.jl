@@ -8,7 +8,6 @@ st = saved["states"]
 n_samples = 4
 n_steps = 20
 
-# CHECK VALUES
 nx, nt = 100, 100
 emb_channels = 32
 
@@ -49,7 +48,6 @@ for (i, (label, solver)) in enumerate(solvers)
     push!(results, (label=label, samples=samples, time=dt))
 end
 
-# ── Metrics ──
 function ic_violation(samples, u_ic)
     _nx, _nt, nc, nb = size(samples)
     viols = [sqrt(sum(abs2, samples[:, 1, c, b] .- u_ic)) for b in 1:nb, c in 1:nc]
@@ -97,7 +95,6 @@ for r in results
             "$(round(r.time;digits=1))s")
 end
 
-# ── Plot ──
 p = plot(title="Burgers IC: u(x,0)", xlabel="x", ylabel="u")
 plot!(p, x_grid, u_0_ic_vec, label="target IC", lw=3, ls=:dash, color=:black)
 if length(results) >= 3

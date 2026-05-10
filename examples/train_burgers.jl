@@ -21,7 +21,6 @@ ffm = FFM(nx=nx, nt=nt, emb_channels=emb_channels,
           n_layers=4, modes=(32,32), device=cpu_device())
 _, st_inf = Lux.setup(Random.default_rng(), ffm.model)
 
-# ── Burgers IC ──
 p_loc = 0.5f0
 eps_val = 0.02f0
 x_grid = Float32.(range(0.0, 1.0, length=nx))
@@ -30,7 +29,7 @@ u_0_ic_vec = Float32.(1.0 ./ (1.0 .+ exp.((x_grid .- p_loc) ./ eps_val)))
 dx = Float32(1.0 / (nx - 1))
 dt_physics = Float32(1.0 / (nt - 1))
 
-# Left BC value (from training distribution)
+# Left BC value
 u_L = 0.8f0  # sample from U(0,1)
 
 cdata = make_constraint_data(u_0_ic_vec, nx, nt, n_samples;
@@ -41,10 +40,7 @@ println("  IC: sigmoid at p_loc=$p_loc")
 println("  u_L (Dirichlet) = $u_L")
 println("  M₀ = $(round(cdata.M0;digits=4))")
 
-# ── All Burgers solvers ──
 solvers = [
-    # ("Unconstrained",              NoOpSolver()),
-    # ("IC-only (analytic)",         AnalyticICProjectionSolver()),
     # Regime 1: BC + Mass
     ("B-BC: BC+Mass (LBFGS)",      BurgersBCMassSolver(penalty=1.0f4)),
     ("B-BC: BC+Mass (IPNewton)",   BurgersBCMassIPSolver()),
@@ -64,7 +60,6 @@ for (i, (label, solver)) in enumerate(solvers)
     push!(results, (label=label, samples=samples, time=dt))
 end
 
-# ── Metrics ──
 function ic_violation(samples, u_ic)
     _nx, _nt, nc, nb = size(samples)
     viols = [sqrt(sum(abs2, samples[:, 1, c, b] .- u_ic)) for b in 1:nb, c in 1:nc]
@@ -112,7 +107,6 @@ function flux_residual_violation(samples, dx, dt_physics)
     return (mean=sum(viols)/length(viols), max=maximum(viols))
 end
 
-# ── Print results ──
 println("\n" * "=" ^ 90)
 println("BURGERS EQUATION — BOTH REGIMES")
 println("=" ^ 90)
@@ -147,7 +141,6 @@ for r in results
             "$(round(r.time;digits=1))s")
 end
 
-# ── Plots ──
 colors = [:red, :orange, :blue, :purple, :green, :darkgreen]
 
 # Mass over time

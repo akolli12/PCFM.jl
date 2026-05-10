@@ -40,19 +40,13 @@ export IPMassProjectionSolver
 export RDSolver
 export NSVorticityAnalyticSolver
 export NSVorticityLBFGSSolver
-# export BurgersConservationSolver
 export RDIPNewtonSolver
 export NSVorticityIPNewtonSolver
-# export BurgersIPNewtonSolver
 export BurgersBCMassSolver, BurgersBCMassIPSolver
 export BurgersICFluxSolver, BurgersICFluxIPSolver
 
 export solve_projection, make_constraint_data
-# constraint factories
-# export ic_constraint, mass_constraint, energy_constraint, ic_and_energy_constraint
-# model helpers
 export prepare_input, interpolate_flow
-# training / sampling
 export train_ffm!, sample_ffm, sample_pcfm #_final
 export generate_diffusion_data
 export get_array_layout, get_slice, n_spatial, set_slice!

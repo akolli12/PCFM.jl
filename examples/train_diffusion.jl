@@ -168,14 +168,14 @@ end
 # ═══════════════════════════════════════════════════════════
 
 # Plot 1: IC slice for IC+Energy
-arr_ie = Array(results[4].samples)  # IC+Energy analytic
-p_ic = plot(title="IC: u(x,0) — IC+Energy projection", xlabel="x", ylabel="u")
-plot!(p_ic, x_grid, u_0_ic_vec, label="target IC", lw=3, ls=:dash, color=:black)
-for i in 1:n_samples
-    plot!(p_ic, x_grid, arr_ie[:,1,1,i], label="sample $i", alpha=0.6)
-end
-display(p_ic)
-savefig("plot_ic.png")
+# arr_ie = Array(results[4].samples)  # IC+Energy analytic
+# p_ic = plot(title="IC: u(x,0) — IC+Energy projection", xlabel="x", ylabel="u")
+# plot!(p_ic, x_grid, u_0_ic_vec, label="target IC", lw=3, ls=:dash, color=:black)
+# for i in 1:n_samples
+#     plot!(p_ic, x_grid, arr_ie[:,1,1,i], label="sample $i", alpha=0.6)
+# end
+# display(p_ic)
+# savefig("plot_ic.png")
 
 # Plot 2: Energy over time for all methods
 p_energy = plot(title="Energy E(t) = ∫u²dx across timesteps",
